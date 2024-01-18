@@ -2,20 +2,19 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Cell, Legend, Pie, ResponsiveContainer, PieChart } from "recharts";
 
-const COLORS = [
-  "#a8ddb5",
-  "#87c994",
-  "#6cae75",
-  "#4e934f",
-  "#3c7326",
-]
+const COLORS = ["#a8ddb5", "#87c994", "#6cae75", "#4e934f", "#3c7326"];
 const PieChartContainer = () => {
-
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const getData = async () => {
-    const res = await axios.get("https://react-task-arab.vercel.app/api/pie-chart");
+    const res = await axios.get(
+      `${
+        process.env.REACT_APP_API_URL || "http://localhost:3001"
+      }/api/pie-chart`
+    );
     console.log(res.data);
-    setData(res.data)
+    setData(res.data);
+    setLoading(false)
   };
 
   useEffect(() => {
@@ -23,14 +22,14 @@ const PieChartContainer = () => {
   }, []);
   return (
     <div
-      className="bg-white p-10 rounded-lg shadow-lg w-full h-full"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      className="bg-white p-10 rounded-lg shadow-lg w-full h-full flex justify-center items-center"
     >
-      <ResponsiveContainer width="100%" height="100%">
+        {loading && (
+        <div className="flex w-full h-full justify-center items-center">
+        <div className="w-8 h-8 bg-[#171c42] animate-spin"></div>
+      </div>
+      )}
+     {!loading && <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
             data={data}
@@ -59,7 +58,7 @@ const PieChartContainer = () => {
             }))}
           />
         </PieChart>
-      </ResponsiveContainer>
+      </ResponsiveContainer>}
     </div>
   );
 };
