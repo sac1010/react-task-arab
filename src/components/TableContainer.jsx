@@ -1,15 +1,21 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useTable } from 'react-table';
 
-const defaultData = [
-  { id: 1, name: 'Item 1', quantity: 10, price: 20 },
-  { id: 2, name: 'Item 2', quantity: 15, price: 25 },
-  { id: 3, name: 'Item 3', quantity: 8, price: 15 },
-  { id: 4, name: 'Item 4', quantity: 12, price: 30 },
-  { id: 5, name: 'Item 5', quantity: 18, price: 22 },
-];
 
 function TableContainer() {
+
+  const [data, setData] = useState([])
+  const getData = async () => {
+    const res = await axios.get("/api/table");
+    console.log(res.data);
+    setData(res.data)
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const columns = React.useMemo(
     () => [
       {
@@ -33,7 +39,7 @@ function TableContainer() {
   );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data: defaultData });
+    useTable({ columns, data: data });
 
   return (
     <div className="p-2 w-full bg-white shadow-lg rounded-xl">

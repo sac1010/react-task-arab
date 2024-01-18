@@ -20,7 +20,7 @@ const Sidebar = () => {
     </div>
     <div className='flex flex-col gap-5 text-right w-full items-end -translate-y-14'>{items.map((item, i)=>{
       return(
-        <div className={`${i==0?"bg-white text-black":"bg-[#0c1030] text-white"}  w-[80%] flex items-center py-3 rounded-l-lg font-semibold  pl-14 gap-2  cursor-pointer`}>
+        <div key={item.text} className={`${i==0?"bg-white text-black":"bg-[#0c1030] text-white"}  w-[80%] flex items-center py-3 rounded-l-lg font-semibold  pl-14 gap-2  cursor-pointer`}>
           <img width={20} height={20} src={item.logo} alt="logo" />
           <div className=''>{item.text}</div>
         </div>

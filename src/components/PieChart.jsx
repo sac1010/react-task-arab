@@ -1,13 +1,6 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Cell, Legend, Pie, ResponsiveContainer, PieChart } from "recharts";
-
-const pieChartData = [
-  { label: "Category A", value: 30 },
-  { label: "Category B", value: 20 },
-  { label: "Category C", value: 15 },
-  { label: "Category D", value: 25 },
-  { label: "Category E", value: 10 },
-];
 
 const COLORS = [
   "#a8ddb5",
@@ -17,6 +10,17 @@ const COLORS = [
   "#3c7326",
 ]
 const PieChartContainer = () => {
+
+  const [data, setData] = useState([])
+  const getData = async () => {
+    const res = await axios.get("/api/pie-chart");
+    console.log(res.data);
+    setData(res.data)
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div
       className="bg-white p-10 rounded-lg shadow-lg w-full h-full"
@@ -29,7 +33,7 @@ const PieChartContainer = () => {
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
-            data={pieChartData}
+            data={data}
             cx="50%"
             cy="50%"
             labelLine={false}
@@ -37,7 +41,7 @@ const PieChartContainer = () => {
             dataKey="value"
             isAnimationActive
           >
-            {pieChartData.map((entry, index) => (
+            {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
@@ -48,7 +52,7 @@ const PieChartContainer = () => {
             verticalAlign="bottom"
             align="center"
             layout="vertical"
-            payload={pieChartData.map((entry, index) => ({
+            payload={data.map((entry, index) => ({
               value: entry.label,
               type: "circle",
               color: COLORS[index % COLORS.length],
