@@ -13,7 +13,7 @@ const PieChartContainer = () => {
 
   const [data, setData] = useState([])
   const getData = async () => {
-    const res = await axios.get("/api/pie-chart");
+    const res = await axios.get("https://react-task-arab.vercel.app/api/pie-chart");
     console.log(res.data);
     setData(res.data)
   };

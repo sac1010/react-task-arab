@@ -7,7 +7,7 @@ function TableContainer() {
 
   const [data, setData] = useState([])
   const getData = async () => {
-    const res = await axios.get("/api/table");
+    const res = await axios.get("https://react-task-arab.vercel.app/api/table");
     console.log(res.data);
     setData(res.data)
   };

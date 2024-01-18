@@ -13,7 +13,7 @@ import {
 const Graph = () => {
   const [data, setData] = useState([])
   const getData = async () => {
-    const res = await axios.get("/api/graph");
+    const res = await axios.get("https://react-task-arab.vercel.app/api/graph");
     console.log(res.data);
     setData(res.data)
   };
