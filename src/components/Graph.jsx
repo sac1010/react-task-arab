@@ -13,9 +13,7 @@ const Graph = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const getData = async () => {
-    const res = await axios.get(
-      `${process.env.REACT_APP_API_URL || "http://localhost:3001"}/api/graph`
-    );
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/graph`);
     console.log(res.data);
     setData(res.data);
     setLoading(false);
@@ -26,7 +24,7 @@ const Graph = () => {
   }, []);
   return (
     <ResponsiveContainer className={"bg-white p-10 rounded-lg shadow-lg"}>
-      {loading && ( 
+      {loading && (
         <div className="flex w-full h-full justify-center items-center">
           <div className="w-8 h-8 bg-[#171c42] animate-spin"></div>
         </div>

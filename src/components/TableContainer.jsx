@@ -6,9 +6,7 @@ function TableContainer() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const getData = async () => {
-    const res = await axios.get(
-      `${process.env.REACT_APP_API_URL || "http://localhost:3001"}/api/table`
-    );
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/table`);
     console.log(res.data);
     setData(res.data);
     setLoading(false);
