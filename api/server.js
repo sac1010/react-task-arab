@@ -1,26 +1,10 @@
-// See https://github.com/typicode/json-server#module
-import jsonServer from "json-server";
-
+// api/server.js
+const jsonServer = require('json-server');
 const server = jsonServer.create();
-const router = jsonServer.router("db.json");
+const router = jsonServer.router('db.json'); // Adjust this path based on your data file
 const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
+server.use('/api', router); // This sets the base path for your JSON Server API
 
-// Add this before server.use(router)
-server.use(
-  jsonServer.rewriter({
-    "/api/graph/*": "/graph/$1",
-    "/api/pie-chart/*": "/pie-chart/$1",
-    "/api/table/*": "/table/$1",
-  })
-);
-
-server.use(router);
-
-server.listen(3000, () => {
-  console.log("JSON Server is running");
-});
-
-// Export the Server API
-export default server;
+module.exports = server;
